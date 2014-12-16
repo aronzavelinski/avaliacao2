@@ -73,14 +73,18 @@ public class Ponto {
         String str = getNome()+"("+x+","+y+","+z+")";
         return str;
     }
-
-
-    public boolean equals(Ponto pt){
-        if(pt == null)
+    
+    @Override
+    public boolean equals(Object p){
+        if(p == null || !(p instanceof Ponto))
             return false;
-        if(pt.x==this.x && pt.y==this.y && pt.z==this.z)
+        
+        Ponto pt = (Ponto) p;
+        if((pt.getX()==this.x) && (pt.getY()==this.y) && (pt.getZ()==this.z)){
             return true;
-        else
+        }
+        else{
             return false;
+        }
     }
 }

@@ -17,7 +17,7 @@ public class Poligonal {
     public Poligonal(int tam){
         first = -1;
         if(tam<2)
-            throw new RuntimeException("Poligonal deve ter ao menos 2 vértices");
+            throw new ArithmeticException("Poligonal deve ter ao menos 2 vértices");
         vertices = new Ponto2D[tam];
     }
     
@@ -52,16 +52,30 @@ public class Poligonal {
         if(     pt instanceof PontoXY && !(vertices[getFirst()] instanceof PontoXY) ||
                 pt instanceof PontoXY && !(vertices[getFirst()] instanceof PontoXY) ||
                 pt instanceof PontoXY && !(vertices[getFirst()] instanceof PontoXY) )
-            throw new RuntimeException("Vértices devem estar no mesmo plano");
+            throw new ArithmeticException("Vértices devem estar no mesmo plano");
         
         vertices[pos] = pt;
     }
     
     public double getComprimento(){
         double comp = 0;
-        for(int i=0; i<vertices.length-1; i++){
-            comp += vertices[i].dist(vertices[i+1]);
+        int i, j;
+        for(i=0; i<vertices.length-1;){
+            j=i+1;
+            if(vertices[i]==null){
+                i++;
+                continue;
+            }
+            
+            for(;vertices[j]!=null && j<vertices.length; j++); //avança até encontrar próximo não nulo
+            
+            if(j==vertices.length)
+                break;
+            
+            comp += vertices[i].dist(vertices[j]);
+            i=j;
         }
+        
         return comp;
     }
 }
