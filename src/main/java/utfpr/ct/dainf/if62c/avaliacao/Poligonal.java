@@ -59,21 +59,9 @@ public class Poligonal {
     
     public double getComprimento(){
         double comp = 0;
-        int i, j;
-        for(i=0; i<vertices.length-1;){
-            j=i+1;
-            if(vertices[i]==null){
-                i++;
-                continue;
-            }
-            
-            for(;vertices[j]!=null && j<vertices.length; j++); //avança até encontrar próximo não nulo
-            
-            if(j==vertices.length)
-                break;
-            
-            comp += vertices[i].dist(vertices[j]);
-            i=j;
+        int i;
+        for(i=0; i<vertices.length-1; i++){
+            comp += vertices[i].dist(vertices[i+1]);
         }
         
         return comp;

@@ -19,26 +19,11 @@ public class PoligonalFechada extends Poligonal{
     @Override
     public double getComprimento(){
         double comp = 0;
-        int i, j;
-        int prim=0;
-        for(i=0; i<vertices.length-1;){
-            j=i+1;
-            if(vertices[i]==null){
-                i++;
-                if(vertices[i]!=null && prim==0)
-                    prim = i;
-                continue;
-            }
-            
-            for(;vertices[j]!=null && j<vertices.length; j++); //avança até encontrar próximo não nulo
-            
-            if(j==vertices.length)
-                break;
-            
-            comp += vertices[i].dist(vertices[j]);
-            i=j;
+        int i;
+        for(i=0; i<vertices.length-1; i++){
+            comp += vertices[i].dist(vertices[i+1]);
         }
-        comp += vertices[i].dist(vertices[prim]);
+        comp += vertices[i].dist(vertices[0]);
         return comp;
     }
 }
